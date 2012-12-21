@@ -1,10 +1,15 @@
 from django.conf.urls import patterns, include, url
 
+import nexus
+
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
 # admin.autodiscover()
 
+nexus.autodiscover()
+
 urlpatterns = patterns('',
+    url(r'^nexus/', include(nexus.site.urls),
     # Examples:
     # url(r'^$', 'writer.views.home', name='home'),
     # url(r'^writer/', include('writer.foo.urls')),
