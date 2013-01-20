@@ -1,5 +1,7 @@
 from django.conf.urls import patterns, include, url
 
+from writer import settings
+
 import nexus
 
 # Uncomment the next two lines to enable the admin:
@@ -9,7 +11,9 @@ import nexus
 nexus.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^nexus/', include(nexus.site.urls),
+    url(r'^nexus/', include(nexus.site.urls)),
+    url(r'^$', 'artillery.views.home', name='home'),
+    url(r'^media/(.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
     # Examples:
     # url(r'^$', 'writer.views.home', name='home'),
     # url(r'^writer/', include('writer.foo.urls')),
