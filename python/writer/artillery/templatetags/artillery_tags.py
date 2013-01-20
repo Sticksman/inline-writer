@@ -1,6 +1,6 @@
 from django import template
 
-from writer import settings
+from django.conf import settings
 
 register = template.Library()
 
