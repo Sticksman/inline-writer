@@ -7,23 +7,6 @@ class Profile(models.Model):
     description = models.TextField(blank=True)
 
 
-class Genre(models.Model):
-    name = models.CharField(max_length=100)
-    description = models.TextField()
-    created_on = models.DateField()
-    modified_on = models.DateField()
-
-
-class Canon(models.Model):
-    name = models.CharField(max_length=100)
-    description = models.TextField()
-    owner = models.ForeignKey(User)
-    mods = models.ManyToManyField(User, related_name='u+')
-    is_nsfw = models.BooleanField(default=False)
-    primary_genre = models.ForeignKey(Genre)
-    genres = models.ManyToManyField(Genre, related_name='genre+')
-
-
 class Story(models.Model):
     (
             ORIGINAL,
@@ -37,8 +20,7 @@ class Story(models.Model):
     summary = models.TextField(blank=True)
 
     author = models.ForeignKey(User)
-    editors = models.ManyToManyField(User, related_name='editor+')
-    canon = models.ForeignKey(Canon)
+    editors = models.ManyToManyField(User, related_name='editor+', null=True)
 
     # For if a story is considered officially part of a canon or not.
     classification = models.PositiveIntegerField(choices=(
@@ -48,12 +30,25 @@ class Story(models.Model):
         (FANFICTION, 'fanmade'),)
     )
 
+    related_stories = models.ManyToManyField('Story', related_name='story+', null=True)
+    created_on = models.DateField(auto_now_add=True)
+    modified_on = models.DateField(auto_now=True)
+
+
+class StoryArt(models.Model):
+    story = models.ForeignKey(Story, blank=True)
+    art = models.ImageField(upload_to='storyart/%Y-%m-%d/')
+    created_on = models.DateField(auto_now_add=True)
+    modified_on = models.DateField(auto_now=True)
+
 
 class Chapter(models.Model):
     title = models.CharField(max_length=100)
     story = models.ForeignKey(Story)
     order = models.PositiveIntegerField()
     content = models.TextField()
+    created_on = models.DateField(auto_now_add=True)
+    modified_on = models.DateField(auto_now=True)
 
     class Meta:
         unique_together = ('story', 'order')
