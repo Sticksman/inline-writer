@@ -13,6 +13,7 @@ nexus.autodiscover()
 urlpatterns = patterns('',
     url(r'^nexus/', include(nexus.site.urls)),
     url(r'^$', 'artillery.views.home', name='home'),
+    url(r'^write/$', 'artillery.views.write', name='write'),
     # Examples:
     # url(r'^$', 'writer.views.home', name='home'),
     # url(r'^writer/', include('writer.foo.urls')),

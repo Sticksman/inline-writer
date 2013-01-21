@@ -5,7 +5,6 @@ from django.contrib.auth.decorators import login_required
 from ext.token import decrypt_string
 
 from artillery import models
-
 import api
 
 def home(request):
@@ -15,7 +14,10 @@ def home(request):
 
 @login_required
 def subscriptions(request):
-    from 
+    pass
+
+def write(request):
+    return shortcuts.render_to_response('artillery/write.html', {})
 
 
 #API handlers
