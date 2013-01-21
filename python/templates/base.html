@@ -12,10 +12,22 @@
         {% endblock %}
     </head>
     <body>
-        <div id="content">
-            FOOOOO
-            {% block content %}
-            {% endblock %}
+        <div class="container-fluid">
+            <div id="main-nav" class="navbar-inverse navbar">
+                <div class="navbar-inner">
+                    <a class="brand" href="#">Artillery</a>
+                    <ul class="nav">
+                        <li><a href="#">Stories</a></li>
+                        <li><a href="#">Genres</a></li>
+                        <li><a href="#">Authors</a></li>
+                        <li><a href="#">My Stories</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div id="content">
+                {% block content %}
+                {% endblock %}
+            </div>
         </div>
     </body>
     <footer>
