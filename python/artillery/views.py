@@ -6,4 +6,4 @@ from artillery import models
 
 def home(request):
     stories = models.Story.objects.all()
-    return shortcuts.render_to_response('base.html',{})
+    return shortcuts.render_to_response('artillery/base.html',{})
