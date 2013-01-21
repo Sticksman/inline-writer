@@ -6,6 +6,9 @@ class Profile(models.Model):
     user = models.OneToOneField(User, primary_key=True)
     description = models.TextField(blank=True)
 
+class Canon(models.Model):
+    admins = models.ManyToManyField(User)
+    
 
 class Story(models.Model):
     (
@@ -18,6 +21,8 @@ class Story(models.Model):
     title = models.CharField(max_length=100)
     tagline = models.CharField(max_length=160)
     summary = models.TextField(blank=True)
+    canon = models.ForeignKey(Canon)
+    
 
     author = models.ForeignKey(User)
     editors = models.ManyToManyField(User, related_name='editor+', null=True)
@@ -34,6 +39,9 @@ class Story(models.Model):
     created_on = models.DateField(auto_now_add=True)
     modified_on = models.DateField(auto_now=True)
 
+class Subscription(models.Model):
+    user = models.ForeignKey(User)
+    canon = models.ForeignKey(Canon)
 
 class StoryArt(models.Model):
     story = models.ForeignKey(Story, blank=True)
