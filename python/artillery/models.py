@@ -1,16 +1,23 @@
 from django.db import models
 from django.contrib.auth.models import User
+from ext.token import encrypt_string
+
+class TokenedModel(object):
+    @property
+    def token(self):
+        assert self.id, "You can't tokenify an object that doesn't have an id"
+        return encrypt_string(str(self.id))
 
 # Create your models here.
-class Profile(models.Model):
+class Profile(models.Model, TokenedModel):
     user = models.OneToOneField(User, primary_key=True)
     description = models.TextField(blank=True)
 
-class Canon(models.Model):
+class Canon(models.Model, TokenedModel):
     admins = models.ManyToManyField(User)
     
 
-class Story(models.Model):
+class Story(models.Model, TokenedModel):
     (
             ORIGINAL,
             APPROVED,
@@ -39,18 +46,19 @@ class Story(models.Model):
     created_on = models.DateField(auto_now_add=True)
     modified_on = models.DateField(auto_now=True)
 
-class Subscription(models.Model):
+class Subscription(models.Model, TokenedModel):
     user = models.ForeignKey(User)
     canon = models.ForeignKey(Canon)
+    
 
-class StoryArt(models.Model):
+class StoryArt(models.Model, TokenedModel):
     story = models.ForeignKey(Story, blank=True)
     art = models.ImageField(upload_to='storyart/%Y-%m-%d/')
     created_on = models.DateField(auto_now_add=True)
     modified_on = models.DateField(auto_now=True)
 
 
-class Chapter(models.Model):
+class Chapter(models.Model, TokenedModel):
     title = models.CharField(max_length=100)
     story = models.ForeignKey(Story)
     order = models.PositiveIntegerField()

@@ -156,3 +156,6 @@ LOGGING = {
         },
     }
 }
+
+APP_SECRET = "hJ1iLQjWF44LNs8d"
+
