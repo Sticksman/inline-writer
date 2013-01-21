@@ -1,5 +1,4 @@
 prereqs:
-django-extensions
-South
-Nexus
-ipython
+Virtual env
+
+A writing app.
