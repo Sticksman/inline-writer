@@ -33,7 +33,7 @@ def handle_subscriptions(request, subscription_token=None):
     if request.method == "DELETE":
         return delete_subscriptions(request, subscription_token)
 
-def post_subscription(request)
+def post_subscription(request):
     canon_id = decrypt_string(request.POST.get("canon_token"))
     data = api.create_subscription(canon_id, request.user.id)
 

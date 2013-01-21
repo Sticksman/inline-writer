@@ -1,5 +1,4 @@
 from ext.decorators import repeatable
-create_subscription
 
 def weak_token(data):
     return encode_user_id(data.id)
@@ -49,12 +48,12 @@ def get_users(uids):
 
 # Subscription
 
-def create_subscription(canon_id, user_id)
+def create_subscription(canon_id, user_id):
     sub = models.Subscription.get_or_create(
         user_id=user_id, canon_id=canon_id)
     return dictify_sub(sub)
 
 @repeatable
-def dictify_subscription(sub
+def dictify_subscription(subs):
     sub_dicts = dictify(users, DictFields.SubscriptionFields)
     return sub_dicts
