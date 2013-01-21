@@ -2,6 +2,8 @@
 from django import shortcuts
 from django import template
 
+from artillery import models
+
 def home(request):
-    return shortcuts.render_to_response('base.html',{})
-    pass
+    stories = models.Story.objects.all()
+    return shortcuts.render_to_response('artillery/base.html',{})
